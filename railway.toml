@@ -1,0 +1,20 @@
+# railway.toml
+[build]
+  dockerfile = "Dockerfile"  # This points to your Dockerfile
+
+[services]
+  [[services.docker]]
+    name = "nginx-service"  # You can change this name as per your preference
+    image = "nginx:alpine"
+    build = true
+    ports = ["8000"]
+    environment = []
+    command = ["nginx", "-g", "daemon off;"]
+    
+    # If you have a public folder to copy, ensure it's part of the project
+    copy = [
+      { from = "./public", to = "/usr/share/nginx/html" }
+    ]
+
+    # Expose the port to the world
+    expose = ["8000"]
